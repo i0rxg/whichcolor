@@ -2,25 +2,22 @@ CC = gcc
 CFLAGS = -Wall -Wextra
 LDFLAGS = -lX11
 
-SRCDIR = src
-BINDIR = bin
-
 EXEC = whichcolor
-SRC = $(SRCDIR)/whichcolor.c
+SRC = whichcolor.c
 
 .PHONY: all clean install uninstall
 
-all: $(BINDIR)/$(EXEC)
+all: $(EXEC)
 
-$(BINDIR)/$(EXEC): $(SRC)
-	mkdir -p $(BINDIR)
+$(EXEC): $(SRC)
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 
 clean:
-	rm -rf $(BINDIR)
+	rm -f $(EXEC)
 
-install: $(BINDIR)/$(EXEC)
-	sudo cp $(BINDIR)/$(EXEC) /usr/local/bin/
+install: $(EXEC)
+	sudo install -m 755 $(EXEC) /usr/local/bin/
 
 uninstall:
 	sudo rm -f /usr/local/bin/$(EXEC)
+

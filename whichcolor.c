@@ -1,10 +1,24 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <X11/cursorfont.h>  // Include this header for cursor constants
+#include <X11/cursorfont.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main() {
+void copy_to_clipboard(const char *text) {
+    char command[256];
+    snprintf(command, sizeof(command), "echo -n '%s' | xclip -selection clipboard", text);
+    system(command);
+}
+
+int main(int argc, char *argv[]) {
+    int copy_to_clip = 0;
+
+    // Parse command-line arguments
+    if (argc > 1 && strcmp(argv[1], "-c") == 0) {
+        copy_to_clip = 1;
+    }
+
     Display *display = XOpenDisplay(NULL);
     if (display == NULL) {
         fprintf(stderr, "Failed to open display\n");
@@ -12,7 +26,7 @@ int main() {
     }
 
     Window root = DefaultRootWindow(display);
-    Cursor cursor = XCreateFontCursor(display, XC_crosshair);  // Use the XC_crosshair constant from cursorfont.h
+    Cursor cursor = XCreateFontCursor(display, XC_crosshair);
 
     XEvent event;
     XButtonEvent *button_event;
@@ -43,8 +57,16 @@ int main() {
 
     printf("Color information for pixel at (%d, %d):\n", x, y);
     printf("RGB: (%d, %d, %d)\n", color.red / 256, color.green / 256, color.blue / 256);
-    printf("HEX: #%02x%02x%02x\n", color.red / 256, color.green / 256, color.blue / 256);
+    char hex_code[8];
+    snprintf(hex_code, sizeof(hex_code), "#%02x%02x%02x", color.red / 256, color.green / 256, color.blue / 256);
+    printf("HEX: %s\n", hex_code);
+
+    if (copy_to_clip) {
+        copy_to_clipboard(hex_code);
+        printf("Hex code copied to clipboard\n");
+    }
 
     XCloseDisplay(display);
     return 0;
 }
+
