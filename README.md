@@ -1,3 +1,4 @@
+
 # Whichcolor
 
 A simple C program that allows users to select a pixel on the screen and retrieve its color information on Linux using Xorg.
@@ -19,43 +20,49 @@ A simple C program that allows users to select a pixel on the screen and retriev
 
 1. Clone the repository:
 
-   ```
+   \`\`\`sh
    git clone https://github.com/yourusername/color-picker.git
-   ```
+   \`\`\`
 
 2. Navigate to the project directory:
 
-   ```
+   \`\`\`sh
    cd color-picker
-   ```
+   \`\`\`
 
 3. Install the necessary dependencies. On Ubuntu or Debian-based systems, run:
 
-   ```
+   \`\`\`sh
    sudo apt install libx11-dev
-   ```
+   \`\`\`
+
+   On Arch-based systems, run:
+
+   \`\`\`sh
+   sudo pacman -S libx11
+   \`\`\`
 
 4. Build the program:
 
-   ```
+   \`\`\`sh
    make
-   ```
+   \`\`\`
 
 5. Install the program globally:
 
-   ```
+   \`\`\`sh
    sudo make install
-   ```
+   \`\`\`
 
-   This will copy the compiled binary to `/usr/local/bin`, allowing you to run the program from anywhere in the terminal.
+   This will copy the compiled binary to /usr/local/bin, allowing you to run the program from anywhere in the terminal.
 
 ## Usage
 
 1. Run the program from anywhere in the terminal:
 
-   ```
+   \`\`\`sh
    whichcolor
-   ```
+   \`\`\`
 
 2. The program will grab the mouse pointer. Drag the mouse to the desired pixel on the screen.
 
@@ -63,15 +70,21 @@ A simple C program that allows users to select a pixel on the screen and retriev
 
 4. The program will display the color information for the selected pixel, including RGB values and HEX code.
 
+5. To copy the HEX code to the clipboard, run the program with the -c option:
+
+   \`\`\`sh
+   whichcolor -c
+   \`\`\`
+
 ## Uninstallation
 
 To uninstall the program, navigate to the project directory and run:
 
-```
+\`\`\`sh
 sudo make uninstall
-```
+\`\`\`
 
-This will remove the program from `/usr/local/bin`.
+This will remove the program from /usr/local/bin.
 
 ## Contributing
 
